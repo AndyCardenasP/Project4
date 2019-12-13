@@ -1,0 +1,7 @@
+Host        ec2-174-129-254-217.compute-1.amazonaws.com
+Database    dqikomtd8db9l
+User        irxwuxtbrtpyzy
+Port        5432
+Password    d973f568ba2c3016e4f0be707c04e8be5d42ee419603e89a42d50a63ad3c8cd4
+URI         postgres://irxwuxtbrtpyzy:d973f568ba2c3016e4f0be707c04e8be5d42ee419603e89a42d50a63ad3c8cd4@ec2-174-129-254-217.compute-1.amazonaws.com:5432/dqikomtd8db9l
+Heroku CLI  heroku pg:psql postgresql-closed-16692 --app cs50p4

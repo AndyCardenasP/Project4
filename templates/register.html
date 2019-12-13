@@ -1,0 +1,53 @@
+<!--Author: Andrés Fernando Cárdenas Ponce
+This is the register.html file
+Proyect4 | WebProgramming Python and JavaScript-->
+{% extends "bootstrap/base.html" %}
+{% block title %}*name{% endblock %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body style="background-image: url(/static/fondo1.jpg); background-size:120%; height:100vh">
+    <div class="col-xs-7 col-xs-offset-3" style="background-color: wheat;margin-bottom:5%">
+        <div style="width:100%; height:15%; text-align: center;">
+            <img src="/static/bookreader.png" style="max-width: 60%;">
+        </div>
+        <form action="/register" method="POST">
+            <div class="card" style="text-align: center; margin-bottom:5%">
+                <h1 style="margin-top:2%;height: 20%;">Register</h1>
+                <h3 style="margin-top:2%;height: 10%">Ingresa tus datos:</h3>
+
+                <input name="username" type=text style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Username</label>
+                <input name="nombre" type=text style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Nombre</label>
+                <input name="apellido" type=text style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Apellido</label>
+                <input name="relacion" type=text style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Relación con Yachay</label>
+                <input name="numero" telefónico" type=numeric style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Número telefónico</label>
+                <input name="email" type=email style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>Email example:andres@yachay.com</label>
+                <input name="pssw" type=password style="font-size:25px;margin-top:3%;width: 100%;">
+                <label>contraseña</label>
+                <h4 style="margin-top:5%;text-align:left">Al continuar, aceptas las <a href=#>Condiciones de
+                        Uso</a>
+                    y el Aviso de
+                    privacidad de EcoYT</h4>
+            </div>
+            <input type="submit" class="btn btn-info" style="font-size:25px;width:100%;margin-bottom:5%"
+                style="position:fixed;margin-top:2%" value="Crear Cuenta">
+        </form>
+    </div>
+    <div class="col-xs-12"
+        style="background-color:gray;box-shadow:2px -2px 10px 0px grey;width: 100%; height: 10%; text-align: center;bottom:0px">
+        <h5 style="margin-top:2%;margin-left:10%"><strong>(c) 2019-2020, EcoYT.com, YachayTech University-Ecuador
+            </strong></h5>
+    </div>
+</body>
+
+{% endblock %}

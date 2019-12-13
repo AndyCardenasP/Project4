@@ -1,0 +1,143 @@
+<!--Author: Andrés Fernando Cárdenas Ponce
+This is the seeproduct.html file
+Proyect4 | WebProgramming Python and JavaScript-->
+{% extends "bootstrap/base.html" %}
+{% block title %}*name{% endblock %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body style="background-color: honeydew;">
+    <div style="height: 100%;" class="container">
+        <form action="/buscarpref" , method=POST>
+            <div
+                style="font-size:20px;padding-top:25px;text-align: center;height:10%; width:75%;background-color: lightsteelblue;position:fixed;right: 0px;">
+                <label>Tienes Preferencias?</label>
+                <select name="option" style="width: 40%;">
+                    {% for i in tipos %}
+                    <option value={{i}}>{{tipos[i]}}</option>
+                    {% endfor %}
+                </select>
+                <button type=submit><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <div style="height:100%;width:25%;background-color: lightgreen;position:fixed;left:0px">
+            <div class="row">
+                <h1 style="text-align:center"><strong>EcoYT</strong></h1>
+            </div>
+            <div class="row" style="margin-top:10%">
+                <h3 style="text-align: center">
+                    {% if session["nombre"] %}<strong>{{session['nombre']}}</strong>{% endif %}
+                    {% if session["apellido"] %} <strong>{{session['apellido']}}</strong>{% endif %}</h3>
+                <h4 style="text-align: center"> username: <strong>{{session['username']}}</strong></h4>
+            </div>
+            <div class="row" style="margin-top:15%;text-align: center;">
+                <form action="/publicar" method="GET">
+                    <input type="submit" class="btn btn-lg" style="width: 90%;font-size:20px" value="Publicar">
+                </form>
+            </div>
+            <div class="row" style="margin-top:5%;text-align: center;">
+                <form action="/home" method="GET">
+                    <input type="submit" class="btn btn-lg" style="width: 90%; font-size:20px" value="Productos">
+                </form>
+            </div>
+            <div class="row" style="margin-top:20%;text-align: center;">
+                <form action="/logout" method="GET">
+                    <input type="submit" class="btn btn-lg btn-danger" style="width: 90%; font-size:20px"
+                        value="Cerrar Sesión">
+                </form>
+            </div>
+        </div>
+        <div style="font-size:20px;padding:3% 5% 5% 5%;height:90%;width:75%; position:fixed; right:0px;bottom:0px">
+            <div style="border: 2px saddlebrown solid; height:100%; padding:2% 3% 3% 3%">
+                <h2 style="text-align: center;"><strong>{{product[2]}}</strong></h2>
+                <p style="text-align: center;">categoria: {{product[3]}}</p>
+                {% if used=='3' %}
+                <p>Cantidad: {{interes[9]}}</p>
+                <h2 style="text-align: center;"><strong> UN USUARIO RECIBIRÁ ESTE PRODUCTO!</strong></h2>
+                <h4>Información del usuario:</h4>
+                <h4>user: {{interes[1]}} - <strong>{{interes[2]}} {{interes[3]}}</strong></h4>
+                <h4>relación con Yachay: {{interes[4]}}</h4>
+                <h4>numero: {{interes[5]}}</h4>
+                <h4>email: {{interes[6]}}</h4>
+                {% elif used=='2' %}
+                <p>Cantidad: {{product[4]}}</p>
+                <div>
+                    {% if propio < 1 %}
+                    <h2 style="text-align: center;"><strong>AUN NO HAS RECIBIDO NOTIFICACIONES</strong></h2>
+                    {% else %}
+                    {% for interesado in interes  %}
+                    <div style="border: 2px black solid; padding:2% 3% 3% 3%">
+                        <form action="/acceptproduct/{{interesado[6]}}" method="POST">
+                            <p>user: {{interesado[3]}}</p>
+                            <div class=row>
+                                <p class="col-xs-3"><strong>{{interesado[4]}} {{interesado[5]}}</strong></p>
+                                <p class="col-xs-3">Comentario: {{interesado[2]}}</p>
+                                <p class="col-xs-3">Oferta: {{interesado[1]}}</p>
+                                <button onclick="javascript:alertaccepted();" class="col-xs-2 col-xs-1-offset btn" type=submit>Aceptar<i
+                                        class="fas fa-vote-yea"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                {% else %}
+                <h4 style="text-align: center;">ofrece: <strong>{{product[0]}} {{product[1]}}</strong></h4>
+                <h4>Cantidad: {{product[4]}}</h4>
+                {% if used == '0' %}
+                <h4>Este producto tiene: {{interes}} interesados</h4>
+                <h3 style="text-align:center"><strong>Solicita este producto:</strong></h3>
+                <div style="text-align: center;">
+                    <form action="/getproductfree/{{product[5]}}" method="POST">
+                        <h3><strong>Pedirlo Gratis:</strong></h3>
+                        <h5>Ingresar un comentario para el proveedor:</h5>
+                        <input type=text style="font-size:15px;" name="comment1">
+                        <button onclick="javascript:alertsoli();" type=submit class="btn btn-info"><i class="fas fa-shopping-basket"></i></button>
+                    </form>
+                    <form action="/getproduct/{{product[5]}}" method="POST">
+                        <h3><strong>Ofrecer dinero:</strong></h3>
+                        <h5>Ingresar un comentario para el proveedor:</h5>
+                        <input type=text style="font-size:15px;" name="comment2"><br>
+                        <h5>Cantidad en dólares $:</h5>
+                        <input name=oferta type=number step=0.5 min=1 max=100>
+                        <button onclick="javascript:alertsoli();" type=submit class="btn btn-info"><i class="fas fa-money-bill-wave"></i></button>
+                    </form>
+                </div>
+                {% elif used == '1' %}
+                {% if accepted %}
+                {% if fan %}
+                <h3 style="text-align:center;margin-top:10%"><strong>Lo sentimos!</strong></h3>
+                <h4 style="text-align:center">Este producto ya no se encuentra disponible</h4>
+                <h5 style="text-align:center">Muy pronto será borrado</h5>
+                {% else %}
+                <h3 style="text-align:center"><strong>El usuario {{product[0]}} {{product[1]}} ha aceptado tu
+                        solicitud</strong></h3>
+                <h4>Aquí están sus datos para comunicarse:</h4>
+                <h4>user: {{product[7]}} </h4>
+                <h4>relación con Yachay: {{product[8]}}</h4>
+                <h4>numero: {{product[9]}}</h4>
+                <h4>email: {{product[10]}}</h4>
+                {% endif %}
+                {% else %}
+                <h4><strong>Has solicitado este producto... pronto se te notificará</strong></h4>
+                {% endif %}
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function alertaccepted(){
+            alert('Has acceptado un producto!');            
+        }
+        function alertsoli(){
+            alert('Has solicitado un producto!');            
+        }
+    </script>
+</body>
+
+{% endblock %}

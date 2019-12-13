@@ -1,0 +1,77 @@
+<!--Author: Andrés Fernando Cárdenas Ponce
+This is the main.html file
+Proyect4 | WebProgramming Python and JavaScript-->
+{% extends "bootstrap/base.html" %}
+{% block title %}*name{% endblock %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body style="background-color: honeydew;">
+    <div style="height: 100vh;">
+        <form action="/buscarpref" , method=POST>
+            <div
+                style="font-size:20px;padding-top:25px;text-align: center;height:10%; width:75%;background-color: lightsteelblue;position:fixed;right: 0px;">
+                <label>Tienes Preferencias?</label>
+                <select name="option" style="width: 40%;">
+                    {% for i in tipos %}
+                    <option value={{i}}>{{tipos[i]}}</option>
+                    {% endfor %}
+                </select>
+                <button type=submit><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <div style="height:100%;width:25%;z-index: 10;background-color: lightgreen;position:fixed">
+            <div class="row">
+                <h1 style="text-align:center"><strong>EcoYT</strong></h1>
+            </div>
+            <div class="row" style="margin-top:10%">
+                <h3 style="text-align: center">
+                    {% if session["nombre"] %}<strong>{{session['nombre']}}</strong>{% endif %}
+                    {% if session["apellido"] %} <strong>{{session['apellido']}}</strong>{% endif %}</h3>
+                <h4 style="text-align: center"> username: <strong>{{session['username']}}</strong></h4>
+            </div>
+            <div class="row" style="margin-top:15%;text-align: center;">
+                <form action="/publicar" method=GET>
+                    <input type="submit" class="btn btn-lg" style="width: 90%;font-size:20px" value="Publicar">
+                </form>
+            </div>
+            <div class="row" style="margin-top:5%;text-align: center;">
+                <form action="/home" method="GET">
+                    <input type="submit" class="btn btn-lg" style="width: 90%; font-size:20px" value="Productos">
+                </form>
+            </div>
+            <div class="row" style="margin-top:20%;text-align: center;">
+                <form action="/logout" method="GET">
+                    <input type="submit" class="btn btn-lg btn-danger" style="width: 90%; font-size:20px"
+                        value="Cerrar Sesión">
+                </form>
+            </div>
+        </div>
+        <div style="font-size:20px;padding:3% 5% 5% 5%;height:90%;width:75%; position:fixed; right:0px;bottom:0px">
+            <div>
+                <form action="/buscar" method="POST">
+                    <label>Buscar: </label>
+                    <input name=buscar style="width: 60%;" type="text">
+                    <button type="submit" class="btn "><i class="fas fa-search"></i></button>
+                </form>
+            </div>
+            <div style="overflow: scroll;height: -webkit-fill-available; scrollbar-track-color: cornsilk;">
+                {% for producto in productos %}
+                    <form class="col-xs-5" style="border: darkcyan 5px double;margin-left:1%; margin-top:3%; text-align:center"
+                        action="/gotoproduct/{{producto[5]}}" method="POST">
+                        <h3><strong>{{producto[2]}}</strong></h3>
+                        <h4>{{producto[3]}}</h4>
+                        <button type=submit class="btn"><i class="far fa-eye"></i></button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</body>
+
+{% endblock %}

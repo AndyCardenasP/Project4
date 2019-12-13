@@ -1,0 +1,72 @@
+<!--Author: Andrés Fernando Cárdenas Ponce
+This is the login.html file
+Proyect4 | WebProgramming Python and JavaScript-->
+{% extends "bootstrap/base.html" %}
+{% block title %}*name{% endblock %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+        integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+</head>
+
+<body style="background-image: url(/static/fondo2.jpg); background-size:120%; height:100vh">
+    <div class="col-xs-7 col-xs-offset-3" style="background-color: cornsilk;">
+        <div style="width:100%; height:20%; text-align: center;">
+            <img src="/static/bookreader.png" style="max-width: 60%;">
+        </div>
+        <form style="width: 100%;" action="/login" method="POST">
+            <div class="card" style="text-align: center;">
+                <h1 style="margin-top:10%;height: 20%;">Iniciar Sesión</h1>
+                {% if not existid %}
+                <h3 style="margin-top:5%;height: 10%">Dirección de correo electrónico o número de teléfono móvil</h4>
+                    {% if not error %}
+                    <input name="userid" type=text style="font-size:25px;margin-top:5%;width: 100%;">
+                    <input id="continuar" type="submit" class="btn btn-info" value="Continuar"
+                        style="font-size:25px;margin-top:2%;width: 100%;">
+                    {% else %}
+                    <input name="userid" type=text style="font-size:25px;margin-top:5%;width: 100%;">
+                    <p style="font-size: 15px;color:lightcoral; margin-top:5px">There is no account matched with that
+                        information</p>
+                    <input id="continuar" type="submit" class="btn btn-info" value="Continuar"
+                        style="font-size:25px;margin-top:5px;width: 100%;">
+                    {% endif %}
+                    {% else %}
+                    <h3 style="margin-top:5%;height: 10%">Porfavor ingresa tu clave</h4>
+                        {% if not error %}
+                        <input name="userpssw" type=password style="font-size:25px;margin-top:5%;width: 100%;">
+                        <input type="submit" class="btn btn-info" value="Ingresa"
+                            style="font-size:25px;margin-top:2%;width: 100%;">
+                        {% else %}
+                        <input name="userid" value="{{username}}" type=text
+                            style="font-size:25px;margin-top:5%;width: 100%;">
+                        <input name="userpssw" type=password style="font-size:25px;margin-top:5%;width: 100%;">
+                        <p style="color:lightcoral; margin-top:5px">Incorrect Password</p>
+                        <input type="submit" class="btn btn-info" value="Ingresa"
+                            style="font-size:25px;margin-top:2%;width: 100%;">
+                        {% endif %}
+                        {% endif %}
+                        <h4 style="margin-top:5%;text-align:left">Al continuar, aceptas las <a href=#>Condiciones de
+                                Uso</a>
+                            y el Aviso de
+                            privacidad de EcoYT</h4>
+            </div>
+        </form>
+    </div>
+    <form action="/register" method="GET" class="col-xs-7 col-xs-offset-3" style="height:25%;margin-bottom:5%">
+        <div style="margin-top:8%;width: 100%; text-align:center;">
+            <h4>¿Eres nuevo en EcoYT?</h4>
+        </div>
+        <div style="margin-top:5%">
+            <input type="submit" class="btn btn-info" style="font-size:25px;width:100%;" style="position:fixed;"
+                value="Crea tu cuenta en EcoYT">
+        </div>
+    </form>
+    <div class="col-xs-12"
+        style="background-color:gray;box-shadow:2px -2px 10px 0px grey;width: 100%; height: 10%; text-align: center;bottom:0px">
+        <h5 style="margin-top:2%;margin-left:10%"><strong>(c) 2019-2020, EcoYT.com, YachayTech University-Ecuador
+            </strong></h5>
+    </div>
+</body>
+
+{% endblock %}
